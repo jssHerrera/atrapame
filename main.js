@@ -189,7 +189,7 @@
       winSound.play();
     } else if (result === "lose") {
       if (!loseSound) {
-        loseSound = new Audio("sin.mp3");
+        loseSound = new Audio("perdedor.mp3");
       }
       loseSound.play();
     }
@@ -209,7 +209,7 @@
       modal.style.display = "none";
       stopSound();
       reset();
-    }, 10000);
+    }, 6000);
   }
 
   // the Cat
