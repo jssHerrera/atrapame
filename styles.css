@@ -1,0 +1,111 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
+
+html {
+  overflow: hidden;
+  touch-action: none;
+  content-zooming: none;
+}
+body {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #00a8f7;
+  font-family: "Sora", serif;
+}
+.center {
+  width: 90%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  margin: 90px auto;
+}
+#game {
+  position: absolute;
+  width: 480px;
+  height: 360px;
+  background: transparent;
+  /* background: #00df82; */
+  /* border: 1px solid #030f0f; */
+}
+
+#game .body {
+  stroke-width: 5;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 3;
+}
+#game .head {
+  fill: #252525;
+}
+#game .cell {
+  cursor: pointer;
+}
+#bar {
+  position: absolute;
+  bottom: 32vh;
+  /* left: 50%;
+  width: 100vmin; */
+  color: #fff;
+  font-size: 6vmin;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.3s ease; /* Suaviza la animación */
+  /* margin-left: -50vmin; */
+}
+#bar:hover {
+  transform: scale(1.1);
+}
+/* #reset {
+  position: absolute;
+  left: 10px;
+} */
+#title {
+  position: absolute;
+  right: 10px;
+  cursor: default;
+}
+
+/* El modal (oculto por defecto) */
+.modal {
+  display: none; /* oculto inicialmente */
+  position: fixed;
+  z-index: 100; /* sobre otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* fondo semitransparente */
+}
+
+/* Contenido del modal */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 300px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* Botón de cerrar */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
