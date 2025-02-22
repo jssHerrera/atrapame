@@ -8,7 +8,12 @@
 
   <body>
     <div class="center">
-      <svg id="game" viewBox="0 0 530 395" preserveAspectRatio="none">
+      <h1 class="title">Atrapa a bodoke 😋</h1>
+      <svg
+        id="game"
+        viewBox="63 40 400 310"
+        preserveAspectRatio="xMidYMid meet"
+      >
         <defs>
           <g id="r0" transform="matrix(1, 0, 0, 1, 25, 15)">
             <path d="M15,-7.5L15 7.5L0 15L-15 7.5L-15 -7.5L0 -15L15 -7.5" />
@@ -320,10 +325,12 @@
       </div>
     </div>
     <div id="modal" class="modal">
-      <div class="modal-content">
-        <span id="close" class="close">&times;</span>
-        <h2>¡Ganaste!</h2>
-        <p>Has atrapado al gato.</p>
+      <div class="center-center">
+        <div class="modal-content">
+          <span id="close" class="close">&times;</span>
+          <h2 id="modalTitle" class="title alert"></h2>
+          <p id="modalMessage"></p>
+        </div>
       </div>
     </div>
 

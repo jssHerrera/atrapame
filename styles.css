@@ -7,28 +7,32 @@ html {
   content-zooming: none;
 }
 body {
-  position: absolute;
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   background: #00a8f7;
-  font-family: "Sora", serif;
+  font-family: "Nunito", serif;
 }
 .center {
   width: 90%;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   justify-content: center;
-  margin: 90px auto;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+.title {
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 600;
 }
 #game {
-  position: absolute;
-  width: 480px;
-  height: 360px;
   background: transparent;
-  /* background: #00df82; */
-  /* border: 1px solid #030f0f; */
+  width: 100%;
+  height: auto;
 }
 
 #game .body {
@@ -45,47 +49,37 @@ body {
   cursor: pointer;
 }
 #bar {
-  position: absolute;
-  bottom: 32vh;
-  /* left: 50%;
-  width: 100vmin; */
   color: #fff;
   font-size: 6vmin;
   font-weight: bold;
   cursor: pointer;
-  font-family: "Nunito", sans-serif;
+  padding-top: 10px;
+  text-transform: uppercase;
   user-select: none;
   -webkit-user-select: none;
-  transition: transform 0.3s ease; /* Suaviza la animación */
-  /* margin-left: -50vmin; */
+  transition: transform 0.3s ease;
 }
 #bar:hover {
   transform: scale(1.1);
 }
-/* #reset {
-  position: absolute;
-  left: 10px;
-} */
-#title {
+
+/* #title {
   position: absolute;
   right: 10px;
   cursor: default;
-}
+} */
 
-/* El modal (oculto por defecto) */
 .modal {
-  display: none; /* oculto inicialmente */
+  display: none;
   position: fixed;
-  z-index: 100; /* sobre otros elementos */
+  z-index: 100;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5); /* fondo semitransparente */
+  background-color: rgba(0, 0, 0, 0.5);
 }
-
-/* Contenido del modal */
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
@@ -95,8 +89,6 @@ body {
   text-align: center;
   border-radius: 10px;
 }
-
-/* Botón de cerrar */
 .close {
   color: #aaa;
   float: right;
@@ -108,4 +100,21 @@ body {
 .close:focus {
   color: black;
   text-decoration: none;
+}
+.alert {
+  color: black;
+}
+.center-center {
+  width: 90%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 1200px) {
+  #game {
+    max-width: 420px;
+  }
 }

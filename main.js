@@ -18,6 +18,12 @@
     win = false;
   var addx0, addy0, addx1, addy1, cel, lx, ly, ld, lmax, lx2, ly2;
 
+  // Variables para almacenar los sonidos de victoria y derrota
+  var winSound = null;
+  var loseSound = null;
+  // Variable para almacenar el timer del modal
+  var modalTimer = null;
+
   // cell constructor
   function Cell() {
     this.stat = 0;
@@ -53,7 +59,6 @@
       enabled = false;
       use.setAttributeNS(null, "fill", "#002d4a");
       if (win) {
-        // run the cat, run!
         cat.play();
         cat.run(cat.dir);
       } else {
@@ -145,16 +150,50 @@
     }
   }
 
-  // Variable para almacenar el timer del modal
-  var modalTimer = null;
+  // Función para detener los sonidos
+  function stopSound() {
+    if (winSound) {
+      winSound.pause();
+      winSound.currentTime = 0;
+      winSound = null;
+    }
+    if (loseSound) {
+      loseSound.pause();
+      loseSound.currentTime = 0;
+      loseSound = null;
+    }
+  }
 
-  // Función para mostrar el modal
-  function showModal() {
+  // Función para mostrar el modal, según resultado ("win" o "lose")
+  function showModal(result) {
     var modal = document.getElementById("modal");
+    var modalTitle = document.getElementById("modalTitle");
+    var modalMessage = document.getElementById("modalMessage");
+
+    // Configuramos el contenido del modal según el resultado
+    if (result === "win") {
+      modalTitle.textContent = "¡Ganaste!";
+      modalMessage.textContent = "Noo pobre Bodoke atrapado.";
+    } else if (result === "lose") {
+      modalTitle.textContent = "¡Perdiste!";
+      modalMessage.textContent = "Bodoke se te escapo. jjaj";
+    }
+
     modal.style.display = "block";
 
-    // Si el usuario presiona la "X", se cierra el modal y se reinicia el juego inmediatamente,
-    // cancelando el timer automático.
+    // Reproducimos el sonido correspondiente
+    if (result === "win") {
+      if (!winSound) {
+        winSound = new Audio("sin.mp3");
+      }
+      winSound.play();
+    } else if (result === "lose") {
+      if (!loseSound) {
+        loseSound = new Audio("sin.mp3");
+      }
+      loseSound.play();
+    }
+
     var closeBtn = document.getElementById("close");
     closeBtn.onclick = function () {
       modal.style.display = "none";
@@ -162,14 +201,15 @@
         clearTimeout(modalTimer);
         modalTimer = null;
       }
+      stopSound();
       reset();
     };
 
-    // Cierra automáticamente el modal y reinicia el juego tras 5 segundos
     modalTimer = setTimeout(function () {
       modal.style.display = "none";
+      stopSound();
       reset();
-    }, 5000);
+    }, 10000);
   }
 
   // the Cat
@@ -182,7 +222,6 @@
     dir: 0,
     dirX: [1, 0.5, -0.5, -1, -0.5, 0.5],
     dirY: [0, 1, 1, 0, -1, -1],
-    // SVG update
     display: function (x, y, id) {
       this.shape.setAttributeNS(
         null,
@@ -191,7 +230,6 @@
       );
       this.shape.setAttributeNS(xlinkns, "xlink:href", "#" + id);
     },
-    // move the cat
     jump: function (dir) {
       for (var i = 1; i < 6; i++) {
         var frame = 1;
@@ -209,7 +247,6 @@
         );
       }
     },
-    // run the cat
     run: function (dir) {
       var t = 0;
       for (var i = 1; i < 20; i++) {
@@ -225,14 +262,14 @@
             this.py += 0.4 * 26 * this.dirY[dir];
             this.display(this.px, this.py, id);
             if (end++ == 18) {
-              reset();
+              // Para el caso de pérdida, cuando el gato se escapa
+              showModal("lose");
             }
           }.bind(this),
           t * 64
         );
       }
     },
-    // can go out?
     goOut: function () {
       for (var i = 0; i < 6; ++i) {
         var x = this.y % 2 ? this.x + addx1[i] : this.x + addx0[i];
@@ -246,7 +283,6 @@
       }
       return false;
     },
-    // can win?
     gotoWin: function () {
       for (var i = 0; i < 6; ++i) {
         var x = this.y % 2 ? this.x + addx1[i] : this.x + addx0[i];
@@ -262,7 +298,6 @@
       }
       return false;
     },
-    // find best direction
     getNearest: function () {
       cel[this.y][this.x].po = 0;
       lx[0] = this.x;
@@ -340,7 +375,6 @@
       }
       return false;
     },
-    // random move
     randMove: function () {
       var x = this.x;
       var y = this.y;
@@ -361,7 +395,6 @@
       this.dir = ld[d];
       return true;
     },
-    // play function
     play: function () {
       for (var i = 0; i < 15; i++) {
         for (var j = 0; j < 15; j++) {
@@ -390,15 +423,14 @@
         }
       }
       if (f) {
-        // Gato atrapado: muestra el modal y espera 5 segundos o que se cierre manualmente
+        // En el caso de ganar (gato atrapado)
         enabled = false;
-        showModal();
+        showModal("win");
       } else {
         this.jump(this.dir);
       }
     },
   };
 
-  // start
   newGame();
 })();
